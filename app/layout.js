@@ -1,6 +1,7 @@
 import { Raleway } from "next/font/google";
 import "./globals.css";
 import Navbar from "../components/Navbar";
+import 'react-tooltip/dist/react-tooltip.css';
 
 const raleway = Raleway({
   variable: "--font-raleway-sans",

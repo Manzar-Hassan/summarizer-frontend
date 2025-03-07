@@ -6,19 +6,29 @@ import { useState } from "react";
 import { CgList } from "react-icons/cg";
 import { getMeetingSummary } from "../services/summaryApi";
 import Button from "../components/Button.js";
-import CopyIcon from "../public/CopyIcon.jsx";
-import ClearIcon from "../public/ClearIcon.jsx";
 import ListIcon from "../public/ListIcon.jsx";
 import SummarySpinner from "../components/SummarySpinner.jsx";
-import { FcRules, FcUpload, FcReading } from "react-icons/fc";
+import { FcRules, FcUpload, FcReading, FcTimeline } from "react-icons/fc";
+import RoundButtonWithTooltip from "../components/RoundButtonWithTooltip.jsx";
+import { PiCopySimpleLight } from "react-icons/pi";
+import { PiDownloadSimpleBold } from "react-icons/pi";
+import { FaEye } from "react-icons/fa";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const Page = () => {
   const [file, setFile] = useState(null);
+  const [previewMode, setPreviewMode] = useState(false);
   const [summary, setSummary] = useState("");
+  const [tooltipContent, setTooltipContent] = useState({
+    copy: "Copy",
+    clear: "Clear",
+    download: "Download",
+  });
   const [buttonLoading, setButtonLoading] = useState({
     isLoading: false,
     isCopying: false,
     isClearing: false,
+    isDownloading: false,
   });
 
   const handleSummarize = async (inputFile) => {
@@ -40,21 +50,45 @@ const Page = () => {
     setButtonLoading({ ...buttonLoading, isCopying: true });
     try {
       await navigator.clipboard.writeText(summary);
-      setTimeout(
-        () => setButtonLoading({ ...buttonLoading, isCopying: false }),
-        500
-      );
+      setTooltipContent({ ...tooltipContent, copy: "Copied!" });
+      setTimeout(() => {
+        setTooltipContent({ ...tooltipContent, copy: "Copy" });
+        setButtonLoading({ ...buttonLoading, isCopying: false });
+      }, 1000);
     } catch (err) {
       console.error("Failed to copy text:", err);
+      setTooltipContent({ ...tooltipContent, copy: "Failed to copy" });
       setButtonLoading({ ...buttonLoading, isCopying: false });
     }
   };
 
   const handleClear = () => {
     setButtonLoading({ ...buttonLoading, isClearing: true });
+    setTooltipContent({ ...tooltipContent, clear: "Cleared!" });
     setTimeout(() => {
       setSummary("");
+      setTooltipContent({ ...tooltipContent, clear: "Clear" });
       setButtonLoading({ ...buttonLoading, isClearing: false });
+    }, 1000);
+  };
+
+  const handleDownload = () => {
+    setButtonLoading({ ...buttonLoading, isDownloading: true });
+    setTooltipContent({ ...tooltipContent, download: "Downloaded!" });
+
+    const blob = new Blob([summary], { type: "text/plain" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "meeting-summary.txt";
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+
+    setTimeout(() => {
+      setTooltipContent({ ...tooltipContent, download: "Download" });
+      setButtonLoading({ ...buttonLoading, isDownloading: false });
     }, 1000);
   };
 
@@ -89,11 +123,13 @@ const Page = () => {
                     </div>
                   ) : (
                     <>
-                      <p className="mb-2 text-sm text-gray-500">
-                        <span className="font-semibold">Click to upload</span> or
-                        drag and drop
+                      <p className="mb-2 text-sm text-gray-500 font-semibold">
+                        <span className="font-semibold">Click to upload</span>{" "}
+                        or drag and drop
                       </p>
-                      <p className="text-xs text-gray-500 font-semibold">.vtt files only</p>
+                      <p className="text-xs text-gray-500 font-semibold">
+                        .vtt files only
+                      </p>
                     </>
                   )}
                 </div>
@@ -147,20 +183,85 @@ const Page = () => {
             </div>
             <div className={`mt-4 flex justify-end gap-3`}>
               <Button
-                name={buttonLoading.isCopying ? "Copying..." : "Copy"}
-                onButtonClick={handleCopy}
-                isButtonDisabled={!summary || buttonLoading.isCopying}
-                icon={buttonLoading.isCopying ? <Spinner /> : <CopyIcon />}
-              />
-
-              <Button
-                name={buttonLoading.isClearing ? "Clearing..." : "Clear"}
-                onButtonClick={handleClear}
-                isButtonDisabled={!summary || buttonLoading.isClearing}
-                icon={buttonLoading.isClearing ? <Spinner /> : <ClearIcon />}
+                name="Preview"
+                onButtonClick={() => setPreviewMode(true)}
+                isButtonDisabled={!summary}
+                icon={<FaEye />}
               />
             </div>
           </div>
+
+          {/* preview section */}
+
+          {previewMode && (
+            <div className="col-span-1 md:col-span-2">
+              <div className="bg-white rounded-lg shadow-lg p-6">
+                <div className="flex justify-between items-center">
+                  <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <FcTimeline />
+                    Preview
+                  </h2>
+
+                  <div className="flex gap-2">
+                    <div
+                      data-tooltip-id="copy-tooltip"
+                      data-tooltip-content={tooltipContent.copy}
+                    >
+                      <RoundButtonWithTooltip
+                        icon={<PiCopySimpleLight size={12} />}
+                        onClick={handleCopy}
+                        tooltipFor="copy-tooltip"
+                        tooltipMsg={tooltipContent.copy}
+                      />
+                    </div>
+                    <div
+                      data-tooltip-id="download-tooltip"
+                      data-tooltip-content={tooltipContent.download}
+                    >
+                      <RoundButtonWithTooltip
+                        icon={<PiDownloadSimpleBold size={12} />}
+                        onClick={handleDownload}
+                        tooltipFor="download-tooltip"
+                        tooltipMsg={tooltipContent.download}
+                      />
+                    </div>
+                    <div
+                      data-tooltip-id="clear-tooltip"
+                      data-tooltip-content={tooltipContent.clear}
+                    >
+                      <RoundButtonWithTooltip
+                        icon={<RiDeleteBin6Line size={12} />}
+                        onClick={handleClear}
+                        tooltipFor="clear-tooltip"
+                        tooltipMsg={tooltipContent.clear}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="w-full h-64 border border-gray-300 rounded-lg bg-white">
+                  {buttonLoading.isLoading ? (
+                    <div className="flex items-center justify-center h-full">
+                      <SummarySpinner />
+                    </div>
+                  ) : summary ? (
+                    <div className="h-full p-4 overflow-auto">
+                      <p className="text-gray-800 text-sm leading-relaxed font-sans whitespace-pre-wrap">
+                        {summary}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center h-full text-gray-400">
+                      <p className="flex items-center gap-2 font-semibold">
+                        <ListIcon />
+                        Your Summarized Preview will appear here
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </main>
