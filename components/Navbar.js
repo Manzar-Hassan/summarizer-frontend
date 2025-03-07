@@ -11,7 +11,7 @@ const Navbar = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
-              <Image src="/briefly.png" alt="Logo" width={100} height={100} />
+              <Image src="/briefly.png" alt="Logo" width={100} height={100} priority />
             </Link>
           </div>
 

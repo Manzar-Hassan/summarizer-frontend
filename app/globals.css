@@ -23,5 +23,16 @@ html {
   background: #4f46e5;
 }
 
+.custom-tooltip-style {
+  background-color: #333 !important;
+  color: #fff !important;
+  font-size: 14px !important;
+  border-radius: 6px !important;
+  padding: 6px 10px !important;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2) !important;
+  transition: opacity 0.2s ease-in-out !important;
+}
+
+
 
 

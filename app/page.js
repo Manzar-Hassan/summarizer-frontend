@@ -48,6 +48,7 @@ const Page = () => {
 
   const handleCopy = async () => {
     setButtonLoading({ ...buttonLoading, isCopying: true });
+
     try {
       await navigator.clipboard.writeText(summary);
       setTooltipContent({ ...tooltipContent, copy: "Copied!" });
@@ -65,6 +66,7 @@ const Page = () => {
   const handleClear = () => {
     setButtonLoading({ ...buttonLoading, isClearing: true });
     setTooltipContent({ ...tooltipContent, clear: "Cleared!" });
+
     setTimeout(() => {
       setSummary("");
       setTooltipContent({ ...tooltipContent, clear: "Clear" });
@@ -144,7 +146,7 @@ const Page = () => {
               </label>
             </div>
 
-            <div className={`mt-4 flex justify-between items-center`}>
+            <div className={`mt-4 flex justify-end items-center`}>
               <Button
                 name={buttonLoading.isLoading ? "Summarizing..." : "Summarize"}
                 onButtonClick={() => handleSummarize(file)}
@@ -192,8 +194,7 @@ const Page = () => {
           </div>
 
           {/* preview section */}
-
-          {previewMode && (
+          {(previewMode && summary) && (
             <div className="col-span-1 md:col-span-2">
               <div className="bg-white rounded-lg shadow-lg p-6">
                 <div className="flex justify-between items-center">
@@ -212,6 +213,7 @@ const Page = () => {
                         onClick={handleCopy}
                         tooltipFor="copy-tooltip"
                         tooltipMsg={tooltipContent.copy}
+                        hoverColor="hover:text-green-700 hover:bg-green-100"
                       />
                     </div>
                     <div
@@ -222,6 +224,7 @@ const Page = () => {
                         icon={<PiDownloadSimpleBold size={12} />}
                         onClick={handleDownload}
                         tooltipFor="download-tooltip"
+                        hoverColor="hover:text-blue-700 hover:bg-blue-100"
                         tooltipMsg={tooltipContent.download}
                       />
                     </div>
@@ -231,6 +234,7 @@ const Page = () => {
                     >
                       <RoundButtonWithTooltip
                         icon={<RiDeleteBin6Line size={12} />}
+                        hoverColor="hover:text-red-700 hover:bg-red-100"
                         onClick={handleClear}
                         tooltipFor="clear-tooltip"
                         tooltipMsg={tooltipContent.clear}
