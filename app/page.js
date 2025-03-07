@@ -10,6 +10,7 @@ import CopyIcon from "../public/CopyIcon.jsx";
 import ClearIcon from "../public/ClearIcon.jsx";
 import ListIcon from "../public/ListIcon.jsx";
 import SummarySpinner from "../components/SummarySpinner.jsx";
+import { FcRules, FcUpload, FcReading } from "react-icons/fc";
 
 const Page = () => {
   const [file, setFile] = useState(null);
@@ -60,13 +61,17 @@ const Page = () => {
   return (
     <main className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-3xl font-semibold mb-8 text-gray-900 text-center md:text-left">
-          Text Summarizer
+        <h1 className="text-xl font-semibold mb-8 text-gray-800 text-center md:text-left bg-white rounded-lg shadow-lg p-6 flex items-center gap-2">
+          <FcReading size={28} />
+          File Summarizer
         </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white rounded-lg shadow-lg p-6">
-            <h2 className="text-xl font-semibold mb-4">Input Text</h2>
+            <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+              <FcUpload />
+              Upload File
+            </h2>
 
             <div className="w-full h-64 p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
               <label className="flex flex-col items-center justify-center h-full cursor-pointer">
@@ -105,14 +110,17 @@ const Page = () => {
           </div>
 
           <div className="bg-white rounded-lg shadow-lg p-6">
-            <h2 className="text-xl font-semibold mb-4">Summary</h2>
+            <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+              <FcRules />
+              Summary
+            </h2>
             <div className="w-full h-64 border border-gray-300 rounded-lg bg-white">
               {buttonLoading.isLoading ? (
                 <div className="flex items-center justify-center h-full">
                   <SummarySpinner />
                 </div>
               ) : summary ? (
-                <div className="h-full p-4 overflow-auto">
+                <div className="h-full p-4 overflow-auto scrollbar-custom">
                   <p className="text-gray-800 text-sm leading-relaxed font-sans whitespace-pre-wrap">
                     {summary}
                   </p>
