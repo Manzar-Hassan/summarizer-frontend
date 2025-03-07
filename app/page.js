@@ -80,11 +80,22 @@ const Page = () => {
                     size={60}
                     className="mb-2 text-gray-600"
                   />
-                  <p className="mb-2 text-sm text-gray-500">
-                    <span className="font-semibold">Click to upload</span> or
-                    drag and drop
-                  </p>
-                  <p className="text-xs text-gray-500">.vtt files only</p>
+                  {file ? (
+                    <div className="text-center">
+                      <p className="mb-2 text-sm text-green-600 font-semibold">
+                        Selected file:
+                      </p>
+                      <p className="text-sm text-gray-600">{file.name}</p>
+                    </div>
+                  ) : (
+                    <>
+                      <p className="mb-2 text-sm text-gray-500">
+                        <span className="font-semibold">Click to upload</span> or
+                        drag and drop
+                      </p>
+                      <p className="text-xs text-gray-500 font-semibold">.vtt files only</p>
+                    </>
+                  )}
                 </div>
                 <input
                   type="file"
@@ -120,14 +131,14 @@ const Page = () => {
                   <SummarySpinner />
                 </div>
               ) : summary ? (
-                <div className="h-full p-4 overflow-auto scrollbar-custom">
+                <div className="h-full p-4 overflow-auto">
                   <p className="text-gray-800 text-sm leading-relaxed font-sans whitespace-pre-wrap">
                     {summary}
                   </p>
                 </div>
               ) : (
                 <div className="flex items-center justify-center h-full text-gray-400">
-                  <p className="flex items-center gap-2">
+                  <p className="flex items-center gap-2 font-semibold">
                     <ListIcon />
                     Your summary will appear here
                   </p>
