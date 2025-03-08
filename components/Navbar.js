@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { RiLoginBoxLine } from "react-icons/ri";
 import Button from "./Button";
+import ThemeToggelButton from "./ThemeToggelButton";
 
 const Navbar = () => {
   return (
@@ -17,6 +18,7 @@ const Navbar = () => {
 
           <div className="flex items-center">
             <div className="hidden md:flex space-x-4">
+              <ThemeToggelButton />
               <Link
                 href="/"
                 className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"

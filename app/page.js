@@ -39,7 +39,8 @@ const Page = () => {
 
     getMeetingSummary(formData)
       .then((data) => {
-        setSummary(data.choices[0].message.content);
+        setSummary(data);
+        // setSummary(data.choices[0].message.content);
       })
       .finally(() => {
         setButtonLoading({ ...buttonLoading, isLoading: false });
@@ -97,7 +98,7 @@ const Page = () => {
   return (
     <main className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-xl font-semibold mb-8 text-gray-800 text-center md:text-left bg-white rounded-lg shadow-lg p-6 flex items-center gap-2">
+        <h1 className="text-xl font-semibold mb-8 dark:text-white dark:bg-gray-700 text-gray-800 text-center md:text-left bg-white rounded-lg shadow-lg p-6 flex items-center gap-2">
           <FcReading size={28} />
           File Summarizer
         </h1>
