@@ -4,16 +4,17 @@ import Spinner from "../components/Spinner.jsx";
 import { RiUploadCloud2Fill } from "react-icons/ri";
 import { useState } from "react";
 import { CgList } from "react-icons/cg";
-import { getMeetingSummary } from "../services/summaryApi";
+import { getMeetingSummary } from "../services/summaryApi.js";
 import Button from "../components/Button.js";
 import ListIcon from "../public/ListIcon.jsx";
 import SummarySpinner from "../components/SummarySpinner.jsx";
-import { FcRules, FcUpload, FcReading, FcTimeline } from "react-icons/fc";
+import { FcRules, FcUpload, FcReading, FcTimeline, FcDocument } from "react-icons/fc";
 import RoundButtonWithTooltip from "../components/RoundButtonWithTooltip.jsx";
 import { PiCopySimpleLight } from "react-icons/pi";
 import { PiDownloadSimpleBold } from "react-icons/pi";
 import { FaEye } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { TbFileDescription } from "react-icons/tb";
 
 const Page = () => {
   const [file, setFile] = useState(null);
@@ -39,8 +40,7 @@ const Page = () => {
 
     getMeetingSummary(formData)
       .then((data) => {
-        setSummary(data);
-        // setSummary(data.choices[0].message.content);
+        setSummary(data.choices[0].message.content);
       })
       .finally(() => {
         setButtonLoading({ ...buttonLoading, isLoading: false });
@@ -99,14 +99,14 @@ const Page = () => {
     <main className="container mx-auto px-4 py-8">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-xl font-semibold mb-8 dark:text-white dark:bg-gray-700 text-gray-800 text-center md:text-left bg-white rounded-lg shadow-lg p-6 flex items-center gap-2">
-          <FcReading size={28} />
+          <FcDocument size={28} />
           File Summarizer
         </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white rounded-lg shadow-lg p-6">
             <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-              <FcUpload />
+              <RiUploadCloud2Fill className="text-cyan-600" />
               Upload File
             </h2>
 
@@ -161,7 +161,7 @@ const Page = () => {
 
           <div className="bg-white rounded-lg shadow-lg p-6">
             <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
-              <FcRules />
+              <FcReading />
               Summary
             </h2>
             <div className="w-full h-64 border border-gray-300 rounded-lg bg-white">

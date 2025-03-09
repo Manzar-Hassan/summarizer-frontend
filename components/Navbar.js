@@ -12,31 +12,19 @@ const Navbar = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link href="/" className="flex items-center">
-              <Image src="/briefly.png" alt="Logo" width={100} height={100} priority />
+              <Image
+                src="/briefly.png"
+                alt="Logo"
+                width={100}
+                height={100}
+                priority
+              />
             </Link>
           </div>
 
           <div className="flex items-center">
             <div className="hidden md:flex space-x-4">
               <ThemeToggelButton />
-              <Link
-                href="/"
-                className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-              >
-                Home
-              </Link>
-              <Link
-                href="/about"
-                className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-              >
-                About
-              </Link>
-              <Link
-                href="/contact"
-                className="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-              >
-                Contact
-              </Link>
             </div>
 
             <div className="ml-4 flex items-center">
