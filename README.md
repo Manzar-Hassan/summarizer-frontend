@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# 🚀 Briefly Frontend
 
-First, run the development server:
+A modern web application built with Next.js that transforms meeting transcripts into concise, actionable summaries.
 
+## ✨ Features
+
+- 📤 File upload support for .vtt transcripts
+- 📝 Real-time meeting summarization
+- 👀 Preview mode for summaries
+- 📋 Copy to clipboard functionality
+- 💾 Download summaries as text files
+- 🌓 Dark/Light theme support
+- 📱 Responsive design
+
+## 🛠 Tech Stack
+
+- **Framework**: Next.js 15.2
+- **UI Library**: React 19.0
+- **Styling**: Tailwind CSS
+- **Icons**: React Icons
+- **HTTP Client**: Axios
+- **Animations**: Motion
+- **Tooltips**: React Tooltip
+
+## 🚀 Getting Started
+
+1. **Clone the repository**
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd briefly-frontend
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Install dependencies**
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+3. **Set up environment variables**
+Create a `.env` file:
+```env
+NEXT_PUBLIC_MEETING_SUMMARY_URL=http://localhost:8000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. **Run development server**
+```bash
+npm run dev
+```
 
-## Learn More
+Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-To learn more about Next.js, take a look at the following resources:
+## 📁 Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+briefly-frontend/
+├── app/                # Next.js app directory
+│   ├── layout.js      # Root layout
+│   ├── page.jsx       # Main page component
+│   └── globals.css    # Global styles
+├── components/        # Reusable components
+├── public/           # Static assets
+├── services/         # API services
+└── context/         # React context providers
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🔧 Available Scripts
 
-## Deploy on Vercel
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🎨 Theme Customization
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The application supports both light and dark themes. Theme variables are defined in `globals.css`:
+
+- Light theme colors optimized for readability
+- Dark theme with reduced eye strain
+- Smooth transitions between themes
+
+## 📦 Dependencies
+
+Core dependencies include:
+- next: ^15.2.1
+- react: ^19.0.0
+- axios: ^1.8.1
+- react-icons: ^5.5.0
+- react-tooltip: ^5.28.0
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License.

@@ -94,7 +94,7 @@ const ThemeToggelButton = ({ height = 24, width = 24 }) => {
           variants={raysVariants}
           initial="hidden"
           animate={mode === "light" ? "visible" : "hidden"}
-          className="stroke-yellow-600"
+          className="stroke-red-700"
           style={{ strokeLinecap: "round" }}
         >
           <m.path
@@ -117,8 +117,8 @@ const ThemeToggelButton = ({ height = 24, width = 24 }) => {
             d: mode === "dark" ? moonPath : sunPath,
             rotate: mode === "dark" ? -360 : 0,
             scale: mode === "dark" ? 2 : 1,
-            stroke: mode === "dark" ? "#60a5fa" : "#fbbf24",
-            fill: mode === "dark" ? "#60a5fa" : "#fbbf24",
+            stroke: mode === "dark" ? "#60a5fa" : "#b91c1c",
+            fill: mode === "dark" ? "#60a5fa" : "#b91c1c",
             fillOpacity: 0.35,
             strokeOpacity: 1,
           }}
